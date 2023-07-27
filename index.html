@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Page title</title>
+  </head>
+  <body>
+
+
+  <div id="my_modal" class="modal">
+    <div class="modal_content">
+      <span class="close_modal_window">×</span>
+      <input type="text" id="name" placeholder="Name">
+    <input type="datetime-local" id="time">
+    <textarea id="content" placeholder="Content"></textarea>
+    <select id="category">
+      <option value="Task">Task</option>
+      <option value="Idee">Idee</option>
+      <option value="Quote">Quote</option>
+    </select>
+    <input type="text" id="dates" placeholder="Dates (comma-separated)">
+    <button class="create__note">Create</button>
+    </div>
+  </div>
+    
+    
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="notebook">
+                <ul class="list-header">
+                    <li class="item-header"><p>Name</p></li>
+                    <li class="item-header"><p>Created</p></li>
+                    <li class="item-header"><p>Category</p></li>
+                    <li class="item-header"><p>Content</p></li>
+                    <li class="item-header"><p>Dates</p></li>
+                    <li class="item-header"><p><Button><i class="fa-solid fa-inbox"></i></Button><i class="fa-solid fa-trash"></i></p></li>
+                </ul>
+                
+                <ul class="noteList">
+
+                </ul>
+                <button class="open__modal" type="button">Create Note</button>
+          </div>
+          <div class="archive_notebook">
+          
+          </div>
+      </section>
+    </main>
+
+    <script src="./js/app.js" type="module"></script>
+    <script src="./js/modal.js" type="module"></script>
+    <script src="./js/operations.js" type="module"></script>
+  </body>
+</html>

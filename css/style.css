@@ -1,0 +1,103 @@
+ul, li {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+.container {
+    width: 1200px;
+    padding: 32px 16px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.noteList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: brown;
+}
+.item-header{
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+.item__note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  /* Стилизация блока с информацией о заметке */
+  .list_info {
+    flex: 1;
+    display: flex;
+    padding-right: 10px;
+     /* Добавьте небольшой отступ справа для разделения с кнопками */
+  }
+  
+  /* Стилизация элементов <p> */
+  .item-info p {
+    margin: 0;
+    white-space: nowrap; /* Предотвращаем перенос текста на новую строку */
+    overflow: hidden; /* Прячем текст, который не помещается в элементе */
+    text-overflow: ellipsis;
+    width: 200px; /* Добавляем многоточие для обозначения обрезанного текста */
+  }
+  .item-info + .item-info {
+    margin-left: 16px;
+  }
+  /* Стилизация категории */
+  .category {
+    font-weight: bold;
+  }
+  
+  /* Стилизация блока с кнопками действий */
+  .list_btn {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Стилизация кнопок действий */
+  .item_btn button {
+    margin-left: 5px;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .item_btn button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Стилизация заголовков списка */
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+  }
+  
+  .item-header {
+    text-align: center;
+  }
+  
+  .item-header p {
+    margin: 0;
+  }
+
+  .category {
+    padding-left: 7px;
+  }
