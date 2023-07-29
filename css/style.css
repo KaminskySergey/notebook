@@ -16,17 +16,7 @@ li {
     flex-direction: column;
     justify-content: space-between;
 }
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: brown;
-}
-.item-header{
-    display: flex;
-    align-items: center;
-    margin-left: 8px;
-}
+
 .item__note {
     display: flex;
     align-items: center;
@@ -94,6 +84,7 @@ li {
     text-align: center;
   }
   
+  
   .item-header p {
     margin: 0;
   }
@@ -101,3 +92,27 @@ li {
   .category {
     padding-left: 7px;
   }
+
+
+  .button__event i {
+    pointer-events: none;
+  }
+
+.info_notebook {
+  width: 50%;
+  margin-right: 32px;
+}
+
+  .list-info-table, .archive-info-table{
+    display: flex;
+    
+    align-items: center;
+    padding: 10px;
+    height: 32px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+  }
+
+  .hidden-btn {
+display: none;  
+}

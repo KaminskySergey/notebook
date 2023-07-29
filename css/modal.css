@@ -25,3 +25,8 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.open__modal {
+    margin-left: auto;
+    display: block;
+}

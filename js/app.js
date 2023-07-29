@@ -1,147 +1,135 @@
+import { notesData } from '../components/data.js';
+import { modalClose, modalOpen } from './modal.js';
+import { archiveAdd, createNote, deleteNote, editNote } from './operations.js';
+import { markupArchived, markupInfo, markupItem, renderArchived, renderCard, renderInfoQuantity } from './render.js';
 
-const notesData = [
-  {
-    id: 1,
-    name: '1',
-    time: '2023-07-27T12:00:00',
-    content:
-      'У меня будет визит к стоматологу 3/5/2021, перенёс его с 5/5/2021',
-    category: 'Task',
-    dates: ['3/5/2021', '5/5/2021'],
-    archived: false,
-  },
-  {
-    id: 2,
-    name: 'shop2',
-    time: '2023-07-28T14:30:00',
-    content: 'Написать отчет о выполненной работе',
-    category: 'Task',
-    dates: [],
-    archived: false,
-  },
-  {
-    id: 3,
-    name: 'shop3',
-    time: '2023-07-29T09:15:00',
-    content: 'Идея: создать приложение для заметок',
-    category: 'Idee',
-    dates: [],
-    archived: false,
-  },
-  {
-    id: 4,
-    name: 'shop4',
-    time: '2023-07-30T18:00:00',
-    content: 'Приготовить ужин для гостей',
-    category: 'Task',
-    dates: [],
-    archived: false,
-  },
-  {
-    id: 5,
-    name: 'shop5',
-    time: '2023-07-31T10:00:00',
-    content: 'Купить продукты: молоко, яйца, овощи',
-    category: 'Task',
-    dates: [],
-    archived: false,
-  },
-  {
-    id: 6,
-    name: 'shop6',
-    time: '2023-08-01T16:45:00',
-    content: 'Захватывающая идея для нового проекта',
-    category: 'Idee',
-    dates: [],
-    archived: false,
-  },
-  {
-    id: 7,
-    name: 'shop7',
-    time: '2023-08-02T11:30:00',
-    content: 'Случайная мысль: посмотреть новый фильм',
-    category: 'Quote',
-    dates: [],
-    archived: false,
-  },
-];
+const noteListEl = document.querySelector('.noteList')
+const listInfoQuantity = document.querySelector('.list-render-info')
+const listArchived = document.querySelector('.list-render-archived')
 
-const noteEl = document.querySelector('.notebook');
+const btnCreateNote = document.querySelector('.create__note')
 
-const noteListEl = document.querySelector('.noteList');
+const btnEdit = document.querySelector('.edit__note')
 
-const archiveEl = document.querySelector('.archive_notebook');
 
-const addNote = document.querySelector('.create__note')
 
-// addNote.addEventListener('click', createNote)
+btnCreateNote.addEventListener('click', createNote)
+btnEdit.addEventListener('click', (event) => {
+  editNote(event)
+})
 
-// render note
+
 function currentNote() {
-  notesData.map(el => {
-    const markup = markupItem(el);
-    renderCard(markup);
+  const archivedNotesFalse = notesData.filter(el => el.archived === false);
+  archivedNotesFalse.map(el => {
+      const markup = markupItem(el);
+      renderCard(markup);
+      
+    });
+    
+  }
+  currentNote();
+
+function currentNodeArchive() {
+  const archivedNotesTrue = notesData.filter(el => el.archived === true);
+    archivedNotesTrue.map(el => {
+      const markup = markupArchived(el);
+      renderCard(markup);
+      
+    });
+}
+
+  function editInfo() {
+    modalClose()
+    
+  
+  
+  // Обновляем список заметок
+  noteListEl.innerHTML = '';
+  currentNote();
+  infoNote();
+  }
+  
+
+  function infoNote() {
+    let taskCount = 0;
+  let taskArchivedCount = 0;
+  let ideeCount = 0;
+  let ideeArchivedCount = 0;
+  let quoteCount = 0;
+  let quoteArchivedCount = 0;
+
+  notesData.filter((note) => {
+    switch (note.category) {
+      case 'Task':
+        if (note.archived) {
+          taskArchivedCount++;
+        } else {
+          taskCount++;
+        }
+        break;
+      case 'Idee':
+        if (note.archived) {
+          ideeArchivedCount++;
+        } else {
+          ideeCount++;
+        }
+        break;
+      case 'Quote':
+        if (note.archived) {
+          quoteArchivedCount++;
+        } else {
+          quoteCount++;
+        }
+        break;
+      default:
+        break;
+    }
   });
-}
-currentNote();
-function renderCard(markup) {
-  noteListEl.insertAdjacentHTML('beforeend', markup);
-}
 
-function markupItem(note) {
-  console.log(note, 'notenote');
-  let icon = ''
-  if(note.category === 'Task'){
-    icon = '<i class="fa-solid fa-shop"></i>'
-  } 
-  if (note.category === 'Idee') {
-    icon = '<i class="fa-solid fa-lightbulb"></i>'
-  }
-  if (note.category !== 'Task' &&  note.category !== 'Idee') {
-    icon = '<i class="fa-solid fa-shuffle"></i>'
-  }
-  return `
-<li class='item__note' data-id="${note.id}">
-    
-    <ul class='list_info'>
-    <li class="item-info ">
-    <p class='name'><span class='iconName'>${icon}</span>${note.name}</p>
-    </li>
-    <li class="item-info time">
-    <p class='time'>${note.time}</p>
-    </li>
-    <li class="item-info category">
-    <p class='category'>${note.category}</p>
-    </li>
-    <li class="item-info content">
-    <p class='content'>${note.content}</p>
-    </li>
-    <li class="item-info dates">
-    <p class='dates'>${note.dates.join(', ')}</p>
-    </li>
-    </ul>
-    <ul class="list_btn">
-        <li class='item_btn'>
-            <button onclick="editNote(${
-              note.id
-            })"><i class="fa-solid fa-pen-to-square"></i></button>
-        </li>
-        <li class='item_btn'>
-            <button onclick="archiveNote(${
-              note.id
-            })"><i class="fa-solid fa-inbox"></i></button>
-        </li>
-        <li class='item_btn'>
-            <button onclick="removeNote(${
-              note.id
-            })"><i class="fa-solid fa-trash"></i></button>
-        </li>
-    </ul>
-    
-    
-    
+  const categories = [
+    {name: 'Task', icon: '<i class="fa-solid fa-shop"></i>', quantity: taskCount, archivedCount: taskArchivedCount },
+    {name: 'Idee', icon: '<i class="fa-solid fa-lightbulb"></i>', quantity: ideeCount, archivedCount: ideeArchivedCount },
+    {name: 'Quote', icon: '<i class="fa-solid fa-shuffle"></i>', quantity: quoteCount, archivedCount: quoteArchivedCount },
+  ]
+  
+  const archivedNotesTrue = notesData.filter(el => el.archived === true);
+  const archivedMarkup = archivedNotesTrue.map(el => markupArchived(el)).join('');
+  
 
-  </li>
-`;
-}
-//=====================================
+  const markup = markupInfo(categories)
+  renderInfoQuantity(markup)
+  // renderArchived(archivedMarkup)
+  }
+  infoNote()
+  
+  noteListEl.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target.matches('.button__edit')) {
+      const currentElement = target.closest('li');
+      const id = parseInt(currentElement.dataset.id);
+      
+      
+      const noteToEdit = notesData.find((note) => note.id === id);
+      if (noteToEdit) {
+        document.getElementById('name').value = noteToEdit.name;
+        document.getElementById('time').value = noteToEdit.time;
+        document.getElementById('content').value = noteToEdit.content;
+        document.getElementById('category').value = noteToEdit.category;
+        const lastDate = noteToEdit.dates.length > 0 ? noteToEdit.dates[noteToEdit.dates.length - 1] : '';
+      document.getElementById('dates').value = lastDate;
+      }
+      document.getElementById('my_modal').dataset.id = id;
+
+      modalOpen('edit')
+
+    } else if (target.matches('.button__delete')) {
+      deleteNote(event);
+    } else if (target.matches('.button__archive')) {
+      archiveAdd(event)
+    }
+  });
+
+  
+
+  export {noteListEl, btnCreateNote, currentNote, listInfoQuantity, listArchived, infoNote, btnEdit, editInfo}

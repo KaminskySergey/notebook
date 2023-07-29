@@ -18,12 +18,13 @@
     <input type="datetime-local" id="time">
     <textarea id="content" placeholder="Content"></textarea>
     <select id="category">
+      <option value="Quote">Quote</option>
       <option value="Task">Task</option>
       <option value="Idee">Idee</option>
-      <option value="Quote">Quote</option>
     </select>
     <input type="text" id="dates" placeholder="Dates (comma-separated)">
     <button class="create__note">Create</button>
+    <button class="edit__note">Edit</button>
     </div>
   </div>
     
@@ -42,12 +43,32 @@
                 </ul>
                 
                 <ul class="noteList">
-
+                    
                 </ul>
                 <button class="open__modal" type="button">Create Note</button>
           </div>
-          <div class="archive_notebook">
-          
+          <div style="display: flex; margin-top: 32px;">
+            <div class="info_notebook">
+              <div class="list-info-table">
+                <div style="width: 50%" class="item-info-table"><p>Note Category</p></div>
+                <div style="width: 50%; display: flex;">
+                  <p>Archived</p>
+                  <p style="margin-left: 128px;">Active</p>
+                </div>
+              </div>
+              <ul class="list-render-info">
+  
+              </ul>
+            </div>
+            <div class="archive_notebook" style="width: 50%;">
+              <div class="archive-info-table">
+                <div style="width: 50%; width: 150px;" class="item-info-table"><p>Archive</p></div>
+                
+              </div>
+              <ul class="list-render-archived">
+  
+              </ul>
+            </div>
           </div>
       </section>
     </main>
@@ -55,5 +76,6 @@
     <script src="./js/app.js" type="module"></script>
     <script src="./js/modal.js" type="module"></script>
     <script src="./js/operations.js" type="module"></script>
+    <script src="./js/render.js" type="module"></script>
   </body>
 </html>
