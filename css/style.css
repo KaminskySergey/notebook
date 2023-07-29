@@ -116,3 +116,12 @@ li {
   .hidden-btn {
 display: none;  
 }
+
+.list_archive {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.list_archive li {
+  width: 70px;
+}

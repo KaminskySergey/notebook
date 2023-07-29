@@ -1,5 +1,5 @@
 import { notesData } from '../components/data.js';
-import { currentNote, editInfo, infoNote, noteListEl } from './app.js';
+import { currentNodeArchive, currentNote, editInfo, infoNote, noteListEl } from './app.js';
 import { modalClose } from './modal.js';
 
 
@@ -27,7 +27,6 @@ function createNote () {
     noteListEl.innerHTML = '';
     
 
-  // Отобразите все заметки, включая новую
   currentNote();
   modalClose()
 }
@@ -72,9 +71,7 @@ function editNote(){
         noteToEdit.dates.shift();
       }
   
-      // Добавляем новую дату в конец массива
       
-      // Обновляем свойства заметки
       noteToEdit.name = name;
       noteToEdit.time = time;
       noteToEdit.content = content;
@@ -85,27 +82,37 @@ function editNote(){
 
 }
 
-function archiveAdd (event) {
+function archiveToggle (event) {
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaa')
   if (event.target.dataset.action === "archive") {
     const currentElement = event.target.closest('li');
+    
     const id = parseInt(currentElement.dataset.id);
-console.log(id)
+    
+
     const noteToUpdate = notesData.find(note => note.id === id);
-console.log(noteToUpdate)
+
     if (noteToUpdate) {
-      // Обновляем свойство 'archived', установив его в true
       noteToUpdate.archived = true;
     }
-    
-}
-noteListEl.innerHTML = '';
-    
+  }
+  else  if(event.target.dataset.action === "unArchive") {
+    const currentElement = event.target.closest('li');
+    console.log(currentElement.dataset, 'currentElement')
 
-    // Пример: если 'editInfo()' обновляет другие элементы пользовательского интерфейса, вызываем его
+    const id = parseInt(event.target.dataset.id);
+    console.log(id, 'fffffffffffffff')
+    const noteToUpdate = notesData.find(note => note.id === id);
+console.log(noteToUpdate, 'fffff')
+    if (noteToUpdate) {
+      noteToUpdate.archived = false;
+    }
+  }
+  noteListEl.innerHTML = '';
+  
     editInfo();
 }
-export {createNote, deleteNote, editNote, archiveAdd}
+export {createNote, deleteNote, editNote, archiveToggle}
 
-  
 
 

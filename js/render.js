@@ -10,12 +10,10 @@ import { listArchived, listInfoQuantity, noteListEl } from './app.js';
 } 
 
 function renderInfoQuantity(markup) {
-  console.log(markup, '2222')
   listInfoQuantity.insertAdjacentHTML('beforeend', markup);
   
 }
 function renderArchived(markup) {
-  
   listArchived.insertAdjacentHTML('beforeend', markup);
   
 }
@@ -32,11 +30,10 @@ function markupArchived(note) {
     icon = '<i class="fa-solid fa-shuffle"></i>'
   }
   
-  const datesString = note.dates.join(', ');
 return `
 <li class='item__note' data-id="${note.id}">
       
-      <ul class='list_info'>
+      <ul class='list_archive'>
       <li class="item-info ">
       <p class='name'><span class='iconName'>${icon}</span>${note.name}</p>
       </li>
@@ -46,19 +43,10 @@ return `
       <li class="item-info category">
       <p class='category'>${note.category}</p>
       </li>
-      <li class="item-info content">
-      <p class='content'>${note.content}</p>
-      </li>
-      <li class="item-info dates">
-      <p class='dates'>${datesString}</p>
+      <li class="item-info">
+          <button class="button__unArchive button__event" data-action="unArchive" data-id="${note.id}"><i class="fa-solid fa-box-archive"></i></button>
       </li>
       </ul>
-      <div class="list_btn">
-          
-              <button class="button__unArchive button__event" data-action="unArchive" data-id="${note.id}"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-        
-      </div>
       
       
       

@@ -1,9 +1,11 @@
 import { notesData } from '../components/data.js';
 import { modalClose, modalOpen } from './modal.js';
-import { archiveAdd, createNote, deleteNote, editNote } from './operations.js';
+import { archiveToggle, createNote, deleteNote, editNote } from './operations.js';
 import { markupArchived, markupInfo, markupItem, renderArchived, renderCard, renderInfoQuantity } from './render.js';
 
 const noteListEl = document.querySelector('.noteList')
+const noteListArchive = document.querySelector('.list-render-archived')
+console.log(noteListArchive)
 const listInfoQuantity = document.querySelector('.list-render-info')
 const listArchived = document.querySelector('.list-render-archived')
 
@@ -31,10 +33,11 @@ function currentNote() {
   currentNote();
 
 function currentNodeArchive() {
+  listArchived.innerHTML = '';
   const archivedNotesTrue = notesData.filter(el => el.archived === true);
     archivedNotesTrue.map(el => {
       const markup = markupArchived(el);
-      renderCard(markup);
+      renderArchived(markup);
       
     });
 }
@@ -42,9 +45,6 @@ function currentNodeArchive() {
   function editInfo() {
     modalClose()
     
-  
-  
-  // Обновляем список заметок
   noteListEl.innerHTML = '';
   currentNote();
   infoNote();
@@ -94,12 +94,14 @@ function currentNodeArchive() {
   ]
   
   const archivedNotesTrue = notesData.filter(el => el.archived === true);
-  const archivedMarkup = archivedNotesTrue.map(el => markupArchived(el)).join('');
+  console.log(archivedNotesTrue, 'archivedNotesTrue')
+  
   
 
   const markup = markupInfo(categories)
   renderInfoQuantity(markup)
-  // renderArchived(archivedMarkup)
+  currentNodeArchive()
+  
   }
   infoNote()
   
@@ -126,10 +128,16 @@ function currentNodeArchive() {
     } else if (target.matches('.button__delete')) {
       deleteNote(event);
     } else if (target.matches('.button__archive')) {
-      archiveAdd(event)
+      archiveToggle(event)
     }
   });
 
+  noteListArchive.addEventListener('click', function(event) {
+    const target = event.target;
+    if (target.matches('.button__unArchive')) {
+      archiveToggle(event);
+    }
+  })
   
 
-  export {noteListEl, btnCreateNote, currentNote, listInfoQuantity, listArchived, infoNote, btnEdit, editInfo}
+  export {noteListEl, btnCreateNote, currentNote, listInfoQuantity, listArchived, infoNote, btnEdit, editInfo, currentNodeArchive}
