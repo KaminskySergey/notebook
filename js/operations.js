@@ -6,7 +6,6 @@ import { modalClose } from './modal.js';
 
 function createNote () {
   const name = document.getElementById('name').value;
-  const time = document.getElementById('time').value;
   const content = document.getElementById('content').value;
   const category = document.getElementById('category').value;
   const datesInputValue = document.getElementById('dates').value;
@@ -15,7 +14,7 @@ function createNote () {
     const newNote = {
         id: notesData.length + 1,
         name,
-        time,
+        time: new Date(),
         content,
         category,
         dates,
@@ -59,7 +58,6 @@ function editNote(){
     
     if (noteToEdit) {
       const name = document.getElementById('name').value;
-      const time = document.getElementById('time').value;
       const content = document.getElementById('content').value;
       const category = document.getElementById('category').value;
       const datesInputValue = document.getElementById('dates').value;
@@ -73,7 +71,6 @@ function editNote(){
   
       
       noteToEdit.name = name;
-      noteToEdit.time = time;
       noteToEdit.content = content;
       noteToEdit.category = category;
       noteToEdit.dates.push(...dates);
@@ -83,7 +80,6 @@ function editNote(){
 }
 
 function archiveToggle (event) {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaa')
   if (event.target.dataset.action === "archive") {
     const currentElement = event.target.closest('li');
     
@@ -98,12 +94,11 @@ function archiveToggle (event) {
   }
   else  if(event.target.dataset.action === "unArchive") {
     const currentElement = event.target.closest('li');
-    console.log(currentElement.dataset, 'currentElement')
 
     const id = parseInt(event.target.dataset.id);
-    console.log(id, 'fffffffffffffff')
+    
     const noteToUpdate = notesData.find(note => note.id === id);
-console.log(noteToUpdate, 'fffff')
+
     if (noteToUpdate) {
       noteToUpdate.archived = false;
     }
