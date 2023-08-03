@@ -105,6 +105,14 @@ function currentNodeArchive() {
   }
   infoNote()
   
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString();
+    const month = (date.getMonth() + 1).toString();
+    const year = date.getFullYear().toString().slice(-2);
+    return `${day}/${month}/${year}`;
+  }
+
   noteListEl.addEventListener('click', function(event) {
     const target = event.target;
     if (target.matches('.button__edit')) {
@@ -115,11 +123,10 @@ function currentNodeArchive() {
       const noteToEdit = notesData.find((note) => note.id === id);
       if (noteToEdit) {
         document.getElementById('name').value = noteToEdit.name;
-        document.getElementById('time').value = noteToEdit.time;
         document.getElementById('content').value = noteToEdit.content;
         document.getElementById('category').value = noteToEdit.category;
         const lastDate = noteToEdit.dates.length > 0 ? noteToEdit.dates[noteToEdit.dates.length - 1] : '';
-      document.getElementById('dates').value = lastDate;
+      document.getElementById('dates').value = formatDate(lastDate);
       }
       document.getElementById('my_modal').dataset.id = id;
 
